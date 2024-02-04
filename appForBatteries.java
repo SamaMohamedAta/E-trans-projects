@@ -19,52 +19,42 @@ public class appForBatteries {
         int ynum = input.nextInt();
         System.out.println("Please enter the speed (in mm/min ex:400,500): ");
         int speed = input.nextInt();
+        System.out.println("Please enter where to start(in case any problem happened and you want to start somewhere else): ");
+        int start = input.nextInt();
+
 
         double step = radius + dist;
         int length = xnum * ynum;
 //        flag for y
         boolean count = true;
 //      flag for x
-        boolean xFlag = true ;
+        boolean xFlag = true;
 
 
         System.out.println("G21");
-        System.out.println("G00"+ " X" + x0 + " Y" + y0 + " Z" + z0 );
+        System.out.println("G00" + " X" + x0 + " Y" + y0 + " Z" + z0);
         for (int i = 1; i <= length; i++) {
-            System.out.println("G01"+ " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
+            if (i >= start) System.out.println("G01" + " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
             z0 -= 5;
-            System.out.println("G01"+ " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
+            if (i >= start) System.out.println("G01" + " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
             z0 += 5;
-            System.out.println("G01"+ " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
+            if (i >= start) System.out.println("G01" + " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
             y0 += count ? 5 : -5;
-            System.out.println("G01"+ " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
+            if (i >= start) System.out.println("G01" + " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
             z0 -= 5;
-            System.out.println("G01"+ " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
+            if (i >= start) System.out.println("G01" + " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
             z0 += 5;
-            System.out.println("G01"+ " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
+            if (i >= start) System.out.println("G01" + " X" + x0 + " Y" + y0 + " Z" + z0 + " F" + speed);
             x0 += xFlag ? step : -step;
 //          flag for y place solution
             count = !count;
 //            to go to the next line in y direction
-            if (i%xnum==0){
-//                if(!count){
-//                    y0-=5;
-//                    count=!count;
-//                }
-                y0+=step;
-                xFlag=!xFlag;
+            if (i % xnum == 0) {
+                y0 += step;
+                x0 += xFlag ? -step : step;
+                xFlag = !xFlag;
             }
-//            System.out.println(x0 + " " + y0 + " " + z0 );
-//            z0+=5;
-//            System.out.println(x0 + " " + y0 + " " + z0 );
-//            z0-=5;
-//            System.out.println(x0 + " " + y0 + " " + z0 );
-//            y0-=5;
-//            System.out.println(x0 + " " + y0 + " " + z0 );
-//            z0+=5;
-//            System.out.println(x0 + " " + y0 + " " + z0 );
-//            z0-=5;
-//            System.out.println(x0 + " " + y0 + " " + z0 );
+
         }
 
     }
